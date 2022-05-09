@@ -4,7 +4,7 @@ import TempHum from './components/TempHum.vue'
 
 <template>
   <main>
-    <TempHum />
+    <TempHum sensor="3/3/3"/>
   </main>
 </template>
 
