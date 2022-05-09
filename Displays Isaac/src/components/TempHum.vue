@@ -54,8 +54,8 @@ export default {
     // called when a message arrives
     function onMessageArrived(message) {
       console.log(message);
-      if(message.destinationName.endsWith("temperature")){
-        that.temp = message.payloadString;
+      if(message.destinationName.endsWith("isaac")){
+        that.temp = message.payloadString + " °C";
       }
       if(message.destinationName.endsWith("humidity")){
         that.hum = message.payloadString;
@@ -66,8 +66,34 @@ export default {
 </script>
 
 <template>
-  <h1>{{ temp }}</h1>
+ <transition name="slide-fade" mode="out-in">
+  <div class="lol" :key="temp">
+    <h1>
+      {{temp}}
+    </h1>
+  </div>
+ </transition>
 </template>
 
 <style scoped>
+.lol{
+  color:#42b883;
+  position:absolute;
+  top: 40%;
+  left: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+.slide-fade-enter-active {
+  transition: all .8s ease-in;
+}
+.slide-fade-leave-active {
+  transition: all .8s ease-out;
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for <2.1.8 */ {
+  opacity: 0;
+}
 </style>
