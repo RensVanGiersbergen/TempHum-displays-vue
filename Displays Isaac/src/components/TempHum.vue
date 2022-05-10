@@ -9,8 +9,6 @@ export default {
   },
   mounted() {
     let that = this;
-    // Documentation found at http://www.eclipse.org/paho/clients/js/
-    // or http://www.eclipse.org/paho/files/jsdoc/index.html
 
     // Create a client (host,port,unique client id)
     let client = new Paho.MQTT.Client(
@@ -28,13 +26,13 @@ export default {
       onFailure: onFailure,
       useSSL: true,
       userName: "i461941_test",
-      password: "Shs6TiHWXfcjSd",
+      password: import.meta.env.VITE_PASSWORD_BROKER
     });
 
     // called when the client connects
     function onConnect() {
       // Once a connection has been made, make a subscription and send a message.
-      console.log("onConnect");
+      console.log("Succesfully connected with broker");
 
       //Subscribe to the topic we want to listen to (same as the one we are sending data too.)
       client.subscribe("public/i461941_isaac/#"); //+ that.sensor + "/#");
