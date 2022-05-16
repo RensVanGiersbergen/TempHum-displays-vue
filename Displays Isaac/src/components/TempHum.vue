@@ -12,7 +12,7 @@ export default {
 
     // Create a client (host,port,unique client id)
     let client = new Paho.MQTT.Client(
-      "mqtt.fhict.nl",
+      "0b98e3d1a1514d3688e16cf487c754ae.s2.eu.hivemq.cloud",
       8884,
       (Math.random() * 1e32).toString(36)
     );
@@ -25,7 +25,7 @@ export default {
       onSuccess: onConnect,
       onFailure: onFailure,
       useSSL: true,
-      userName: "i461941_test",
+      userName: "Thims",
       password: import.meta.env.VITE_PASSWORD_BROKER
     });
 
@@ -35,7 +35,7 @@ export default {
       console.log("Succesfully connected with broker");
 
       //Subscribe to the topic we want to listen to (same as the one we are sending data too.)
-      client.subscribe("public/i461941_isaac/#"); //+ that.sensor + "/#");
+      client.subscribe(that.sensor + "/#");
     }
 
     function onFailure(responseObject) {
@@ -52,7 +52,7 @@ export default {
     // called when a message arrives
     function onMessageArrived(message) {
       console.log(message);
-      if(message.destinationName.endsWith("isaac")){
+      if(message.destinationName.endsWith("temperature")){
         that.temp = message.payloadString + " °C";
       }
       if(message.destinationName.endsWith("humidity")){

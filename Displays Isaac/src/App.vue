@@ -4,12 +4,13 @@ import TempHum from './components/TempHum.vue'
 
 <template>
   <main>
-    <TempHum sensor="3/3/3"/>
+    <!-- Change sensor to the topic the sensor publishes too
+    (for example if the sensor publishes to /3/3/3/temperature, the value is 3/3/3) -->
+    <TempHum sensor="3/4/3"/>
   </main>
 </template>
 
 <style>
-/* The element to apply the animation to */
 body{
   background-color:#35495e;
 }
