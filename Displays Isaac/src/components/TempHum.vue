@@ -56,7 +56,7 @@ export default {
         that.temp = message.payloadString + " °C";
       }
       if(message.destinationName.endsWith("humidity")){
-        that.hum = message.payloadString;
+        that.hum = message.payloadString + "%";
       }
     }
   },
@@ -64,34 +64,95 @@ export default {
 </script>
 
 <template>
- <transition name="slide-fade" mode="out-in">
-  <div class="lol" :key="temp">
-    <h1>
-      {{temp}}
-    </h1>
-  </div>
- </transition>
+<div class="weather-wrapper">
+    <div class="weather-card temperature">
+        <div class="weather-icon sun"></div>
+        <h1>{{temp}}</h1>
+        <p>Temperature</p>
+    </div>
+    <div class="weather-card humidity">
+        <h1>{{hum}}</h1>
+        <p>Humidity</p>
+    </div>
+</div>
 </template>
 
 <style scoped>
-.lol{
-  color:#42b883;
-  position:absolute;
-  top: 40%;
-  left: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  -ms-transform: translateX(-50%);
-  transform: translateX(-50%);
+@import url(https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900);
+
+*, *:before, *:after {
+  box-sizing: border-box;
 }
-.slide-fade-enter-active {
-  transition: all .8s ease-in;
+
+.weather-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  text-align: center;
+  min-height: 90vh;
 }
-.slide-fade-leave-active {
-  transition: all .8s ease-out;
+
+.weather-card {
+    
+    margin:  20px 5px;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    width: 270px;
+    height: 270px;
+    background-color: #42b883;
+    box-shadow: 0px 0px 25px 1px rgba(50, 50, 50, 0.1);
+    animation: appear 500ms ease-out forwards;
 }
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active for <2.1.8 */ {
-  opacity: 0;
+    h1 {
+        position: absolute;
+        font-family: 'Lato', sans-serif;
+        font-weight:300;
+        font-size:60px;
+        color: #35495e;
+        bottom: 20px;
+        left: 35px;
+        opacity: 0;
+        transform: translateX(150px);
+        animation: title-appear 500ms ease-out 500ms forwards;
+    }
+    
+    p {
+        position: absolute;
+        font-family: 'Lato', sans-serif;
+        font-weight:300;
+        font-size:28px;
+        color: lighten(#35495e, 10%);
+        bottom: 0;
+        left: 35px;
+        
+    }
+
+@keyframes appear {
+  0% {
+    transform:scale(0);
+  }
+  50% {
+    transform:scale(1.05)
+  }
+  75% {
+    transform:scale(0.95)
+  }
+  100% {
+   transform:scale(1)
+  }
+}
+
+@keyframes title-appear {
+    from {
+        opacity: 0;
+        transform: translateX(0px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0px);
+    }
 }
 </style>
