@@ -16,6 +16,7 @@ export default {
       8884,
       (Math.random() * 1e32).toString(36)
     );
+
     // set callback handlers
     client.onConnectionLost = onConnectionLost;
     client.onMessageArrived = onMessageArrived;
@@ -53,10 +54,10 @@ export default {
     function onMessageArrived(message) {
       console.log(message);
       if(message.destinationName.endsWith("temperature")){
-        that.temp = message.payloadString + " °C";
+        that.temp = message.payloadString;
       }
       if(message.destinationName.endsWith("humidity")){
-        that.hum = message.payloadString + "%";
+        that.hum = message.payloadString;
       }
     }
   },
@@ -67,11 +68,13 @@ export default {
 <div class="weather-wrapper">
     <div class="weather-card temperature">
         <div class="weather-icon sun"></div>
-        <h1>{{temp}}</h1>
+        <h1 v-if="!isNaN(temp)">{{temp}} &#8451; </h1>
+        <h3 v-else> No data received</h3>
         <p>Temperature</p>
     </div>
     <div class="weather-card humidity">
-        <h1>{{hum}}</h1>
+        <h1 v-if="!isNaN(hum)">{{hum}} &#37; </h1>
+        <h3 v-else> No data received</h3>
         <p>Humidity</p>
     </div>
 </div>
@@ -119,6 +122,20 @@ export default {
         animation: title-appear 500ms ease-out 500ms forwards;
     }
     
+    h3 {
+        position: absolute;
+        text-align: left;
+        font-family: 'Lato', sans-serif;
+        font-weight:300;
+        font-size:40px;
+        color: #35495e;
+        bottom: 30px;
+        left: 40px;
+        opacity: 0;
+        transform: translateX(150px);
+        animation: title-appear 500ms ease-out 500ms forwards;
+    }
+
     p {
         position: absolute;
         font-family: 'Lato', sans-serif;
